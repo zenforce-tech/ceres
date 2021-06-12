@@ -1,0 +1,101 @@
+https://ww21.watchmovierulz.me/the-family-man-2021-season-2-episodes-01-09/full-movie-watch-online-free-3794.html
+https://123movies.page/tv/the-family-man-52323.1141267
+
+29-May
+I have created this project in virtualenv and installed django library in it
+31-May
+Create partial templates (top nav, bottom nav) to be added to each section
+
+
+Physical Tables
+
+Office (id, name, address, contact)
+---Warehouse (id, name, code, address office_id)
+---User (id, office_id, name, email, contact, username, password, is_active) / This is not needed as groups is doing job of separating employee, manager and customers for us
+        -- Groups (super_admin, admin, employee, supplier, customer, is_both)
+
+Items (id, name, code, variant, manufacturingdate, expirydate, manufacturer, packing type, adjusted, last_edit_date_time, user_id)
+Supplier (id, name, email, address, contact)
+-- Received Order (id, user_id, supplier_id, invoice_no, date, amount, last_edit_date_time)
+   | Logic | - RO<->Items<->Warehouse
+Received_Items (id, ro_id, item_id, warehouse_id, qty, amount)
+
+Customer (id, name, email, address, contact)
+-- Shipment Order (id, user_id, customer_id, date, amount, status, last_edit_date_time)
+   | Logic | - SO<->Items<->Warehouse
+Shipped_Items (id, so_id, item_id, warehouse_id, qty, amount, payment_status)
+
+Payments (id, c_id, so_id, amount_received)
+
+
+
+Logical Tables
+
+Whole Inventory
+--Custom Supplier Inventory
+--Custom Customer Inventory
+--Per Item Inventory
+
+
+
+
+Model
+
+
+
+View
+Login,
+Dashboard,
+Items,
+Customers
+    Shipping Orders
+Suppliers
+    Received Orders
+Payments
+Admin Settings
+
+
+Architecture
+
+Apps
+Dahboard
+
+
+
+|| Questions for Mahesh ||
+One entity, Trader (name, email, spoc, contact, address, gst, website)
+Does Shipment Order requires vehicle name and number? Yes it does
+How is the payment system working? GST?
+
+
+
+Traders - Storage-keeper - (Lot/Batch number) Item Wise - 
+Invoice(date, number, consignee party name, consignee party number, manufacturing name, product name, packing type, WH number, manufacturing date, expiry date, item weight, item batch, invoice amount)
+
+*Storing receipt - company details, storing receipt number, trader details, wh wise, batch wise, product wise summary
+item name, 
+
+* Item Expiry indicator
+
+For pickup - Outward
+Deivery order number, inward details should match with outward details
+Consignee details, Consignor details, driver name, vehicle number, pickup date time, 
+
+Packing types - Drum, carbo, bags, barrel, pouch, Jar - Rates are different for different trader and packing type
+
+Payment Type - Bank/NEFT, Cash, Month wise calculation, Payment summary, 
+
+
+INR 15000 * 1.18
+
+
+
+
+batch summary
+400 Bag - 20 batch
+20 Bag - A Batch
+20 Bag - B batch
+
+
+
+
