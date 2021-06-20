@@ -22,6 +22,13 @@ class WarehouseA(admin.ModelAdmin):
 class TraderA(admin.ModelAdmin):
     list_display = ('id', 'name', 'address', 'email', 'contact', 'gstin', 'date_added')
 
+
+# Trader-User (id, userid, traderid)
+@admin.register(TraderUser)
+class TraderUserA(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'trader_id')
+
+
 # Items (id, name, code, details, last_edit_date_time, user_id)
 @admin.register(Item)
 class ItemA(admin.ModelAdmin):
@@ -45,8 +52,9 @@ class InvoiceA(admin.ModelAdmin):
 @admin.register(InvoiceItems)
 class InvoiceItems(admin.ModelAdmin):
     list_display = (
-    'id', 'inv_id', 'item_id', 'packing_id', 'warehouse_id', 'batch_name', 'manufacturer_name', 'manufacturing_date',
-    'expiry_date', 'quantity', 'unit_amount')
+        'id', 'inv_id', 'item_id', 'packing_id', 'warehouse_id', 'batch_name', 'manufacturer_name',
+        'manufacturing_date',
+        'expiry_date', 'quantity', 'unit_amount')
 
 
 # StorageReceipt (inv_id, date, final_amount, user_id, note_details)
@@ -59,13 +67,13 @@ class StorageReceiptA(admin.ModelAdmin):
 @admin.register(DeliveryOrder)
 class DeliveryOrderA(admin.ModelAdmin):
     list_display = (
-    'inv_id', 'consignor_id', 'consignee_id', 'driver_name', 'vehicle_number', 'pick_up_date_time', 'user_id',
-    'note_details')
+        'inv_id', 'consignor_id', 'consignee_id', 'driver_name', 'vehicle_number', 'pick_up_date_time', 'user_id',
+        'note_details')
 
 
 # Payment (id, storage_receipt_id, delivery_order_id, trader_id, paid_amount, payment_type, other_details,user_id)
 @admin.register(Payment)
 class PaymentA(admin.ModelAdmin):
     list_display = (
-    'id', 'storage_receipt_id', 'delivery_order_id', 'trader_id', 'paid_amount', 'payment_type', 'other_details',
-    'user_id')
+        'id', 'storage_receipt_id', 'delivery_order_id', 'trader_id', 'paid_amount', 'payment_type', 'other_details',
+        'user_id')

@@ -58,7 +58,7 @@ Admin Settings
 Architecture
 
 Apps
-Dahboard
+Dashboard
 
 
 
@@ -97,5 +97,14 @@ batch summary
 20 Bag - B batch
 
 
+Super User - sushant : Zenforce@789
+Trader - sachin : polyester@123
+Employee - rakesh : cotton@123
+Manager - mahesh : nylon@123
+
+
+###
+Read foreign keys - Done and dusted
+Create Employee
 
 

@@ -1,0 +1,86 @@
+{% extends 'partials/base.html' %}
+{% block title %} Employees | Ceres-WMS {% endblock %}
+{% block pageheading %} Create User {% endblock %}
+
+{%block content %}
+{% if user.is_authenticated and user.is_staff %}
+
+<!-- Script to show/hide User and Trader dropboxes -->
+<script type="text/javascript">
+    function getval(sel){
+        if(sel.value=="1"){
+            $("#traderslist").hide();
+            $("#staffTypes").show();
+        }
+        if(sel.value=="2"){
+            $("#traderslist").show();
+            $("#staffTypes").hide();
+        }
+    }
+</script>
+
+<!-- Create Form -->
+<div class="row">
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <form class="user">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input name="first_name" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name *">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input name="last_name" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name *">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input name="username" type="text" class="form-control form-control-user" id="exampleInputUsername" placeholder="Username *">
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address *">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password *">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password *">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <!-- User Type -->
+                                        <span class="form-control-user" style="font-size:16px;">
+                                            <select id="usertypelist" class="form-control form-control" onchange="getval(this);">
+                                                <option value="1">Staff</option>
+                                                <option value="2">Trader</option>
+                                            </select>
+                                        </span>
+                                        <!-- Trader Type -->
+                                        <span class="form-control-user">
+                                            <select id="traderslist" class="mdb-select form-control" style="margin-top:20px; display:none;" searchable="Search trader">
+                                            {% for t in traders %}
+                                            <option value="{{ t.id }}">{{ t.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        </span>
+                                        <!-- Staff Type -->
+                                        <span class="form-control-user">
+                                            <select id="staffTypes" class="mdb-select form-control" style="margin-top:20px">
+                                                <option value=0>Employee</option>
+                                                <option value=1>Manager</option>
+                                            </select>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                    Create User
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+{% endif %}
+{% endblock %}

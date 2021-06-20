@@ -583,7 +583,7 @@ pre code {
 }
 
 .row {
-  display: flex;
+  display: auto;
   flex-wrap: wrap;
   margin-right: -0.75rem;
   margin-left: -0.75rem;
@@ -10880,6 +10880,7 @@ a:focus {
 
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;
+
 }
 
 form.user .form-control-user {

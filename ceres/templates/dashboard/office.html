@@ -1,0 +1,16 @@
+{% extends 'partials/base.html' %}
+<!-- Title -->
+{% block title %} {{ title }} {% endblock %}
+
+<!-- Button to add user -->
+{% block pageheading %} {{ heading }} {% endblock %}
+
+<!-- Button to add user -->
+{% block createbutton %}{% endblock %}
+
+<!-- Main content -->
+{%block content %}
+{% if user.is_authenticated and user.is_staff %}
+
+{% endif %}
+{% endblock %}

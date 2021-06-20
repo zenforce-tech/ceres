@@ -31,6 +31,15 @@ class Trader(models.Model):
     gstin = models.CharField(max_length=20, null=True)
     date_added = models.DateField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
+
+# Trader-user (id, userid, traderid)
+class TraderUser(models.Model):
+    user_id = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    trader_id = models.ForeignKey(Trader, null=True, on_delete=models.CASCADE)
+
 
 # Items (id, name, code, details, last_edit_date_time, user_id)
 class Item(models.Model):
@@ -52,8 +61,8 @@ class Invoice(models.Model):
     inv_amount = models.DecimalField(decimal_places=2, max_digits=10)
 
 
-# Invoice Items (id, inv_id, item_id, packing_id, warehouse_id, batch_name, manufacturer name, manufacturing_date, expiry_date,
-# quantity, unit_amount)
+# Invoice Items (id, inv_id, item_id, packing_id, warehouse_id, batch_name, manufacturer name, manufacturing_date,
+# expiry_date, quantity, unit_amount)
 class InvoiceItems(models.Model):
     inv_id = models.ForeignKey(Invoice, null=True, on_delete=models.CASCADE)
     item_id = models.ForeignKey(Item, null=True, on_delete=models.CASCADE)

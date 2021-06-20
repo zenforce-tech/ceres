@@ -23,12 +23,15 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="9214d43e-212f-44dc-9886-bd4c19e92982">
-      <console name="Connection" type="STANDARD" schema="main" session="Main" />
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select
+    au.is_staff
+from
+    auth_user au;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

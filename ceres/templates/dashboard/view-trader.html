@@ -1,0 +1,18 @@
+{% extends 'partials/base.html' %}
+<!-- Title -->
+{% block title %} {{ title }} {% endblock %}
+
+<!-- Button to add user -->
+{% block pageheading %} {{ heading }} {% endblock %}
+
+<!-- Button to add user -->
+{% block createbutton %}
+<a href="{% url 'create-trader' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-plus fa-sm text-white-50"></i> {{ createButtonText }}</a>
+{% endblock %}
+
+<!-- Main content -->
+{%block content %}
+{% if user.is_authenticated and user.is_staff %}
+
+{% endif %}
+{% endblock %}
