@@ -102,9 +102,15 @@ Trader - sachin : polyester@123
 Employee - rakesh : cotton@123
 Manager - mahesh : nylon@123
 
+########### Here is what to do next - Create Templates and CRUD views for Inward challans
+########### Understand Delivery Order structure and do the same template CRUD BAU
+########### Create Returns model : Remember this is considered as inwards and are treated as separate transaction
+########### Challenge - Join InvoiceItems table with ReturnItems
 
-###
-Read foreign keys - Done and dusted
-Create Employee
+###InwardItems
+###ShippedItems #InwardItems <- One to Many Relationship -> #ShippedItems
+###ReturnedItems
+
+
 
 

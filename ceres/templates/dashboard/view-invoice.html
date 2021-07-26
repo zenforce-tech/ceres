@@ -1,0 +1,87 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+<!-- Title -->
+{% block title %} {{ title }} {% endblock %}
+
+<!-- Main content -->
+{%block content %}
+{% if user.is_authenticated and user.is_staff %}
+<script type="text/javascript">
+    $(document).ready( function () {
+        var table = $('#itemtable').DataTable({
+            columnDefs: [{
+            "targets": 3,
+            "type": 'date',
+            }]});
+    });
+</script>
+<div class="row">
+    <!-- Create Items Table -->
+    <div class="col-md-3">
+        <div class="card shadow mb-4">
+            <div class="text-primary card-header py-3">
+                 <h4>Create Invoice</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    {% if form.errors %}
+                    {% endif %}
+                    <span>
+                        <a href="{% url 'view-challan' %}" class="btn btn-secondary"><span class="text">Cancel</span></a>
+                        <input class="btn btn-primary float-right" type="submit" value="Create Invoice">
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- View Challan Table -->
+    <div class="col-md-9">
+        <div class="card shadow mb-4">
+            <div class="text-primary card-header py-3">
+                <h4>Invoice</h4>
+            </div>
+            <div class="card-body">
+                <table id="itemtable" class="display">
+            <thead>
+            <tr>
+                <th>Invoice #</th>
+                <th>Trader</th>
+                <th>Invoice Date</th>
+                <th>Invoice Amount</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in invoices %}
+            <tr>
+                <td>{{ i.inv_no }}</td>
+                <td>{{ i.trader_id.name }}</td>
+                <td>{{ i.inv_date }}</td>
+                <td>INR {{ i.inv_amount }}</td>
+                <td><a href="{% url 'invoice-items' i.id %}" class="btn btn-warning btn-sm btn-icon-split">
+                    <span class="text">Add Item</span>
+                    <span class="icon"><i class="fas fa-plus-square"></i>
+                    </span>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-sm btn-icon-split">
+                    <span class="text">Print</span>
+                    <span class="icon"><i class="fas fa-print"></i>
+                    </span>
+                    </a>
+                    <a href="{% url 'update-invoice' i.id %}" class="btn btn-info btn-sm"><i class="fas fa-pen"></i></a>
+                    <a href="{% url 'delete-invoice' i.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

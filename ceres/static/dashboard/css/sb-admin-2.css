@@ -64,7 +64,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #858796;
+  color: darkslategrey;
   text-align: left;
   background-color: #fff;
 }
@@ -10880,7 +10880,6 @@ a:focus {
 
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;
-
 }
 
 form.user .form-control-user {
@@ -10970,11 +10969,12 @@ form.user .btn-user {
 }
 
 .error {
+  display:none;
   color: #5a5c69;
-  font-size: 7rem;
-  position: relative;
-  line-height: 1;
-  width: 12.5rem;
+}
+
+.errorlist {
+    display:none;
 }
 
 @-webkit-keyframes noise-anim {

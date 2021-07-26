@@ -1,18 +1,80 @@
 {% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 <!-- Title -->
 {% block title %} {{ title }} {% endblock %}
 
 <!-- Button to add user -->
 {% block pageheading %} {{ heading }} {% endblock %}
 
-<!-- Button to add user -->
-{% block createbutton %}
-<a href="{% url 'create-item' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-plus fa-sm text-white-50"></i> {{ createButtonText }}</a>
-{% endblock %}
-
 <!-- Main content -->
 {%block content %}
 {% if user.is_authenticated and user.is_staff %}
-
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#itemtable').DataTable();
+    });
+</script>
+<div class="row">
+    <!-- Create Items Table -->
+    <div class="col-md-2">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Create New Item
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    {% if form.errors %}
+                    {% endif %}
+                    <input class="btn btn-primary btn-block" type="submit" value="Create Item">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- View Items Table -->
+    <div class="col-md-10">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Showing all items
+            </div>
+            <div class="card-body">
+                <table id="itemtable" class="display">
+            <thead>
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Item name
+                </th>
+                <th>
+                    Details
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.code }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.details }}</td>
+                <td>
+                    <a href="{% url 'update-item' item.id %}" class="btn btn-info btn-circle btn-sm"><i class="fas fa-pen"></i></a>
+                    <a href="{% url 'delete-item' item.id %}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
+

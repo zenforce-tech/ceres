@@ -52,7 +52,7 @@ class InvoiceA(admin.ModelAdmin):
 @admin.register(InvoiceItems)
 class InvoiceItems(admin.ModelAdmin):
     list_display = (
-        'id', 'inv_id', 'item_id', 'packing_id', 'warehouse_id', 'batch_name', 'manufacturer_name',
+        'id', 'invoice', 'item_id', 'packing_id', 'warehouse_id', 'batch_name', 'manufacturer_name',
         'manufacturing_date',
         'expiry_date', 'quantity', 'unit_amount')
 
@@ -60,14 +60,14 @@ class InvoiceItems(admin.ModelAdmin):
 # StorageReceipt (inv_id, date, final_amount, user_id, note_details)
 @admin.register(StorageReceipt)
 class StorageReceiptA(admin.ModelAdmin):
-    list_display = ('id', 'inv_id', 'date', 'final_amount', 'user_id', 'note_details')
+    list_display = ('id', 'invoice', 'date', 'user', 'note_details')
 
 
 # DO (invoice_no, consignor, consignee, driver, vehicle, pickupdatetime)
 @admin.register(DeliveryOrder)
 class DeliveryOrderA(admin.ModelAdmin):
     list_display = (
-        'inv_id', 'consignor_id', 'consignee_id', 'driver_name', 'vehicle_number', 'pick_up_date_time', 'user_id',
+        'invoice', 'consignor', 'consignee', 'driver_name', 'vehicle_number', 'pick_up_date_time', 'user',
         'note_details')
 
 
@@ -76,4 +76,4 @@ class DeliveryOrderA(admin.ModelAdmin):
 class PaymentA(admin.ModelAdmin):
     list_display = (
         'id', 'storage_receipt_id', 'delivery_order_id', 'trader_id', 'paid_amount', 'payment_type', 'other_details',
-        'user_id')
+        'user')

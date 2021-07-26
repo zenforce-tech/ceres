@@ -55,21 +55,10 @@
         <!-- Nested Row within Card Body -->
         <div class="p-5">
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Welcome to Ceres-WMS!</h1>
+                <h1 class="h1 text-gray-900 mb-4">ProVentory</h1>
+                <H4 class="h4 text-gray-900 mb-4">Inventory Management System</H4>
+                <h5 class="h5 text-gray-900 mb-4">v 1.0 (Ceres)</h5>
             </div>
-            <!--  {% if messages %}
-              <ul class="messages">
-                  {% for message in messages %}
-                  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                      {{ message }}
-                  </div>
-                  {% endfor %}
-              </ul>
-              {% endif %} -->
-
             <form method="POST" action="{% url 'loginPage' %}">
                 <div class="form-group">
                     {% csrf_token %}

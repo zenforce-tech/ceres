@@ -6,11 +6,72 @@
 {% block pageheading %} {{ heading }} {% endblock %}
 
 <!-- Button to add user -->
-{% block createbutton %}{% endblock %}
+{% block createbutton %}
+<a href="{% url 'create-office' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-plus fa-sm text-white-50"></i> {{ createButtonText }}</a>
+{% endblock %}
 
 <!-- Main content -->
 {%block content %}
 {% if user.is_authenticated and user.is_staff %}
-
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#officetable').DataTable();
+    });
+</script>
+<div class="row">
+    <!-- View Office Table -->
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Showing all offices
+            </div>
+            <div class="card-body">
+                <table id="officetable" class="display compact">
+            <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Contact
+                </th>
+                <th>
+                    GST
+                </th>
+                <th>
+                    Last updated
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for office in offices %}
+            <tr>
+                <td><a href="{% url 'update-office' office.id %}">{{ office.name }}</a></td>
+                <td>{{ office.address }}</td>
+                <td>{{ office.email }}</td>
+                <td>{{ office.contact }}</td>
+                <td>{{ office.gstin }}</td>
+                <td>{{ office.date_added }}</td>
+                <td>
+                    <a href="{% url 'update-office' office.id %}" class="btn btn-info btn-circle btn-sm"><i class="fas fa-pen"></i></a>
+                    <a href="{% url 'delete-office' office.id %}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'partials/base.html' %}
+<!-- Title -->
+{% block title %} {{ title }} {% endblock %}
+{% load crispy_forms_tags %}
+<!-- Button to add user -->
+{% block pageheading %} {{ heading }} {% endblock %}
+
+<!-- Button to add user -->
+{% block createbutton %}{% endblock %}
+
+<!-- Main content -->
+{%block content %}
+{% if user.is_authenticated and user.is_staff %}
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#itemsTable').DataTable();
+    });
+</script>
+<div class="card shadow">
+    <div class="row m-3 p-3 bg-primary text-white" >
+        <div class="col-md-6">
+            <h6><b>{{ currentInvoice.trader_id.name }}</b></h6>
+            <h6>{{ currentInvoice.trader_id.address }}</h6>
+            <h6>{{ currentInvoice.trader_id.contact }}</h6>
+            <h6>{{ currentInvoice.trader_id.email }}</h6>
+        </div>
+        <div class="col-md-6" style="text-align:right;">
+            <h6><b>Invoice Number: </b>{{ currentInvoice.inv_no }}</h6>
+            <h6><b>Date: </b>{{ currentInvoice.inv_date }}</h6>
+            <b>Amount:</b> INR {{ currentInvoice.inv_amount }}
+        </div>
+    </div>
+    <div class="row card m-3">
+        <table id="itemsTable" class="table table-striped table-bordered text-dark">
+            <tr class="bg-primary text-white">
+                <th>Sr. No</th>
+                <th>Item Name</th>
+                <th>Packing Type</th>
+                <th>Batch</th>
+                <th>Warehouse name</th>
+                <th>Manufacturing Details</th>
+                <th>Quantity</th>
+                <th>Unit Amount</th>
+                <th>Total Amount</th>
+            </tr>
+
+            {% for item in invoiceItems %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.item_id.name }}<br>
+                <a href="{% url 'update-invoice-item' item.id %}" class="btn btn-sm"><i class="fas fa-pen" style="color:#F0C33C;"></i></a>
+                    <a href="{% url 'delete-invoice-item' item.id %}" class="btn btn-sm"><i class="fas fa-trash" style="color:#DC3545;"></i></a></td>
+                <td>{{ item.packing_id.type }}</td>
+                <td>{{ item.batch_name }}</td>
+                <td>{{ item.warehouse_id.name }}</td>
+                <td><b>Mfr: </b> {{ item.manufacturer_name }}<br>
+                <b>Mfd: </b>{{ item.manufacturing_date }}<br>
+                <b>Exp: </b>{{ item.expiry_date }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit_amount }}</td>
+                <td>{{  item.total_amount }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <form method="POST">
+                {% csrf_token %}
+                    <td><i>Item Name</i>{{ addInvoiceItemsForm.item_id }}</td>
+                <td><i>Packing</i>{{ addInvoiceItemsForm.packing_id }}</td>
+                <td><i>Batch name</i>{{ addInvoiceItemsForm.batch_name }}</td>
+                <td><i>Warehouse</i>{{ addInvoiceItemsForm.warehouse_id }}</td>
+                <td><i>Mfr:</i>{{ addInvoiceItemsForm.manufacturer_name }}<br>
+                    <b>Mfd: </b>{{ addInvoiceItemsForm.manufacturing_date }}<br>
+                    <b>Exp: </b>{{ addInvoiceItemsForm.expiry_date }}</td>
+                <td><i>Quantity</i>{{ addInvoiceItemsForm.quantity }}</td>
+                <td><i>Unit Amount</i>{{ addInvoiceItemsForm.unit_amount}}</td>
+                {% if form.errors %}
+                {% endif %}
+                <td><input class="btn btn-primary float-right" type="submit" value="Add item"></td>
+            </form>
+            </tr>
+        </table>
+    </div>
+    <div class="row p-4">
+        <div class="col-md-8">
+            <a href="{% url 'view-invoice' %}" class="btn btn-secondary btn-sm btn-icon-split">
+                <span class="icon"><i class="fas fa-arrow-left"></i></span>
+                <span class="text">Go Back</span>
+            </a>
+            <a href="{% url 'update-invoice' currentInvoice.id %}" class="btn btn-info btn-sm btn-icon-split">
+                <span class="icon"><i class="fas fa-pen"></i></span>
+                <span class="text">Update Invoice</span>
+            </a>
+            <a href="{% url 'delete-invoice' currentInvoice.id %}" class="btn btn-danger btn-sm btn-icon-split">
+                <span class="icon"><i class="fas fa-trash"></i></span>
+                <span class="text">Delete Invoice</span>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+            <div class="col-md-6"><b>Total:</b></div>
+            <div class="col-md-6" style="text-align:left;">INR {{ total_amount }}</div>
+            <div class="col-md-6"><b>GST (18%):</b></div>
+            <div class="col-md-6" style="text-align:left;">INR {{ gst }}</div>
+            <div class="col-md-6"><b>Grand Total:</b></div>
+            <div class="col-md-6" style="text-align:left;">INR {{ grand_total }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

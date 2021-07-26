@@ -1,18 +1,70 @@
 {% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 <!-- Title -->
 {% block title %} {{ title }} {% endblock %}
 
 <!-- Button to add user -->
 {% block pageheading %} {{ heading }} {% endblock %}
 
-<!-- Button to add user -->
-{% block createbutton %}
-<a href="{% url 'create-packaging' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-plus fa-sm text-white-50"></i> {{ createButtonText }}</a>
-{% endblock %}
-
 <!-- Main content -->
 {%block content %}
 {% if user.is_authenticated and user.is_staff %}
-
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#ptable').DataTable();
+    });
+</script>
+<div class="row">
+    <!-- Create Items Table -->
+    <div class="col-md-2">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Create Packaging
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    {% if form.errors %}
+                    {% endif %}
+                    <input class="btn btn-primary btn-block" style="margin-top:5px;" type="submit"
+                           value="Create Packaging">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- View Items Table -->
+    <div class="col-md-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Showing all packaging types
+            </div>
+            <div class="card-body">
+                <table id="ptable">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in packing %}
+                    <tr>
+                        <td>{{ p.type }}</td>
+                        <td style="text-align:center;">
+                            <a class="btn btn-info btn-circle btn-sm" href="{% url 'update-packaging' p.id %}"><i class="fas fa-pen"></i></a>
+                            <a class="btn btn-danger btn-circle btn-sm" href="{% url 'delete-packaging' p.id %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
 {% endif %}
 {% endblock %}
+

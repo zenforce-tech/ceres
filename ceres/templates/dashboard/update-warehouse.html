@@ -12,7 +12,7 @@
 {%block content %}
 {% if user.is_authenticated and user.is_staff %}
 <div class="row">
-    <!-- Create Items Table -->
+    <!-- Update Warehouse -->
     <div class="col-md-5">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -21,11 +21,9 @@
                 <form method="POST">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    {% if form.errors %}
-                    {% endif %}
                     <span>
-                        <a href="{% url 'view-trader' %}" class="btn btn-secondary"><span class="text">Cancel</span></a>
-                        <input class="btn btn-primary float-right" type="submit" value="Create Trader">
+                        <a href="{% url 'view-warehouse' %}" class="btn btn-secondary"><span class="text">Cancel</span></a>
+                        <input class="btn btn-primary float-right" type="submit" value="Update Office">
                     </span>
                 </form>
             </div>

@@ -13,6 +13,65 @@
 <!-- Main content -->
 {%block content %}
 {% if user.is_authenticated and user.is_staff %}
-
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#tradertable').DataTable();
+    });
+</script>
+<div class="row">
+    <!-- View Trader Table -->
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Showing all traders
+            </div>
+            <div class="card-body">
+                <table id="tradertable" class="display compact">
+            <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Contact
+                </th>
+                <th>
+                    GST
+                </th>
+                <th>
+                    Last updated
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for trader in traders %}
+            <tr>
+                <td><a href="{% url 'update-trader' trader.id %}">{{ trader.name }}</a></td>
+                <td>{{ trader.address }}</td>
+                <td>{{ trader.email }}</td>
+                <td>{{ trader.contact }}</td>
+                <td>{{ trader.gstin }}</td>
+                <td>{{ trader.date_added }}</td>
+                <td>
+                    <a href="{% url 'update-trader' trader.id %}" class="btn btn-info btn-circle btn-sm"><i class="fas fa-pen"></i></a>
+                    <a href="{% url 'delete-trader' trader.id %}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
